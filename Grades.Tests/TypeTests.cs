@@ -9,6 +9,28 @@ namespace Grades.Tests
     public class TypeTests
     {
         [Test]
+        public void UppercaseString()
+        {
+            string name = "hung";
+            
+            name.ToUpper();
+            Assert.AreNotEqual("HUNG", name);
+
+            string name2 = name.ToUpper();
+            Assert.AreEqual("HUNG", name2);
+        }
+        
+        [Test]
+        public void AddDaysToDateTime()
+        {
+            DateTime date = new DateTime(2020, 11, 11);
+            date.AddDays(1);
+            DateTime date2 = date.AddDays(1);
+            Assert.AreNotEqual(12, date.Day);
+            Assert.AreEqual(12, date2.Day);
+        }
+        
+        [Test]
         public void ReferenceTypesPassByValue()
         {
             GradeBook book1 = new GradeBook();
