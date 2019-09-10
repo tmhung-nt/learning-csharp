@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Grades
 {
@@ -7,6 +8,7 @@ namespace Grades
     {
         public GradeBook()
         {
+            _name = "Empty";
             _grades = new List<float>();
         }
 
@@ -29,8 +31,25 @@ namespace Grades
 
             return stats;
         }
-        
-        private List<float> _grades;
-        public string Name;
+
+        public string Name
+        {
+            get => _name.ToUpper();
+            set
+            {
+                if (!String.IsNullOrEmpty(value))
+                {
+                    if (_name != value)
+                    {
+                        NameChanged(_name, value);
+                    }
+                    _name = value;
+                }
+            }
+        }
+
+        public NameChangedDelegate NameChanged;
+        private readonly List<float> _grades;
+        private string _name;
     }
 }
