@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 
 namespace Grades
@@ -37,19 +38,28 @@ namespace Grades
             get => _name.ToUpper();
             set
             {
-                if (!String.IsNullOrEmpty(value))
+                if (string.IsNullOrEmpty(value))
+                    throw new ArgumentException("Name cannot be null or empty");
+                if (_name != value && NameChanged != null)
                 {
-                    if (_name != value)
-                    {
-                        NameChanged(_name, value);
-                    }
-                    _name = value;
+                    NameChangedEventArgs args = new NameChangedEventArgs {ExistingName = _name, NewName = value};
+                    NameChanged(this, args);
                 }
+
+                _name = value;
             }
         }
 
         public event NameChangedDelegate NameChanged;
         private readonly List<float> _grades;
         private string _name;
+
+        public void WriteGrades(TextWriter destination)
+        {
+            foreach (float grade in _grades)
+            {
+                destination.WriteLine(grade);
+            }
+        }
     }
 }
