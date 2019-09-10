@@ -7,9 +7,10 @@ namespace Grades
         public static void Main(string[] args)
         {
             GradeBook book = new GradeBook();
-            book.NameChanged += new NameChangedDelegate(OnNameChanged);
-//            book.NameChanged = new NameChangedDelegate(OnNameChanged2); // this will override above delegate definition
-            book.NameChanged += new NameChangedDelegate(OnNameChanged2);
+            book.NameChanged += OnNameChanged;
+            book.NameChanged += OnNameChanged2;
+            book.NameChanged += OnNameChanged2;
+            book.NameChanged -= OnNameChanged2;
             book.Name = "Hung's grade book";
             book.Name = "Grade book";
             book.AddGrade(88);
