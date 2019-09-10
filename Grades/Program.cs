@@ -8,7 +8,7 @@ namespace Grades
     {
         public static void Main(string[] args)
         {
-            GradeTracker book = CreateGradeBook();
+            IGradeTracker book = CreateGradeBook();
             book.NameChanged += OnNameChanged;
 
             Console.Write("Enter a name: ");
@@ -18,12 +18,12 @@ namespace Grades
             WriteResults(book);
         }
 
-        private static GradeTracker CreateGradeBook()
+        private static IGradeTracker CreateGradeBook()
         {
             return new ThrowAwayGradeBook();
         }
 
-        private static void WriteResults(GradeTracker book)
+        private static void WriteResults(IGradeTracker book)
         {
             GradeStatistics stats = book.ComputeStatistics();
             WriteResult("Average", stats.AverageGrade);
@@ -33,7 +33,7 @@ namespace Grades
             WriteResult(stats.Description, stats.Description);
         }
 
-        private static void SaveGrades(GradeTracker book)
+        private static void SaveGrades(IGradeTracker book)
         {
             using (StreamWriter outputFile = File.CreateText("grades.txt"))
             {
@@ -41,14 +41,14 @@ namespace Grades
             }
         }
 
-        private static void AddGrades(GradeTracker book)
+        private static void AddGrades(IGradeTracker book)
         {
             book.AddGrade(88);
             book.AddGrade(99);
             book.AddGrade(93);
         }
 
-        private static void GetBookName(GradeTracker book)
+        private static void GetBookName(IGradeTracker book)
         {
             try
             {
@@ -61,6 +61,8 @@ namespace Grades
             catch (NullReferenceException ex)
             {
                 Console.WriteLine("Something went wrong!");
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
             }
             catch (Exception ex)
             {
