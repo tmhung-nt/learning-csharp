@@ -18,8 +18,9 @@ namespace Grades
             _grades.Add(grade);
         }
 
-        public GradeStatistics ComputeStatistics()
+        public virtual GradeStatistics ComputeStatistics()
         {
+            Console.WriteLine("GradeBook:ComputeStatistics");
             GradeStatistics stats = new GradeStatistics();
             float sum = 0;
             foreach (float grade in _grades)
@@ -51,7 +52,7 @@ namespace Grades
         }
 
         public event NameChangedDelegate NameChanged;
-        private readonly List<float> _grades;
+        protected readonly List<float> _grades;
         private string _name;
 
         public void WriteGrades(TextWriter destination)

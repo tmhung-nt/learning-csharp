@@ -8,14 +8,19 @@ namespace Grades
     {
         public static void Main(string[] args)
         {
-            GradeBook book = new GradeBook();
-//            book.NameChanged += OnNameChanged;
+            GradeBook book = CreateGradeBook();
+            book.NameChanged += OnNameChanged;
 
             Console.Write("Enter a name: ");
             GetBookName(book);
             AddGrades(book);
             SaveGrades(book);
             WriteResults(book);
+        }
+
+        private static GradeBook CreateGradeBook()
+        {
+            return new ThrowAwayGradeBook();
         }
 
         private static void WriteResults(GradeBook book)
@@ -66,7 +71,7 @@ namespace Grades
 
         static void WriteResult(string description, float result)
         {
-            Console.WriteLine("{0}: {1:C}", description, result);
+            Console.WriteLine("{0}: {1}", description, result);
         }
         
         static void WriteResult(string description, string result)
