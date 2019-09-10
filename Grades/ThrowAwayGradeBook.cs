@@ -8,12 +8,12 @@ namespace Grades
         {
             Console.WriteLine("ThrowAwayGradeBook:ComputeStatistics");
             float lowest = float.MaxValue;
-            foreach (float grade in _grades)
+            foreach (float grade in grades)
             {
                 lowest = Math.Min(lowest, grade);
             }
 
-            _grades.Remove(lowest);
+            grades.Remove(lowest);
             return base.ComputeStatistics();
         }
     }
